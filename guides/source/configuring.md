@@ -544,7 +544,7 @@ Causes the app to not boot if a master key hasn't been made available through `E
 #### `config.revision`
 
 Sets the application revision for deployment tracking and error reporting. Must be a string.
-When not set, Rails first tries reading from a `REVISION` file in the application root, and if absent
+When not set, Rails first checks `ENV["REVISION"]`, then tries reading from a `REVISION` file in the application root, and if both are absent
 it attempts to get the current commit from the local git repository (default: `nil`).
 
 ```ruby
@@ -2221,7 +2221,7 @@ This is mainly for compatibility when upgrading Rails applications, otherwise yo
 Configures the `event_backtrace` attribute in the payload of `rescue_from_handled.action_controller` notifications, and `action_controller.rescue_from_handled` events.
 
 * `:array` - Stores the backtrace as an array of strings.
-* `nil` - Stores the backtrace as the the first string of the backtrace, stripping the `Rails.root` from the controller path.
+* `nil` - Stores the backtrace as the first string of the backtrace, stripping the `Rails.root` from the controller path.
 
 The default value depends on the `config.load_defaults` target version:
 
